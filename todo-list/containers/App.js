@@ -2,19 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
 import {
     addTodo,
     completeTodo,
     setVisibilityFilter,
     visibilityFilter,
+    loadPosts
 } from '../actions'
 
 import TodoList from '../components/TodoList'
 import AddTodo from '../components/AddTodo'
 import Footer from '../components/Footer'
-
+import { visibleTodosSelector } from '../selector/todoSelector'
 class App extends React.Component {
+    componentDidMount() {
+        this.props.onLoadPost()
+    }
     render() {
         const {
             visibleTodos,
@@ -54,15 +57,20 @@ const selectTodos = (todos, filter) => {
     }
 }
 
-const mapStateToProps = (state) => ({
-    visibleTodos: selectTodos(state.todos, state.visibilityFilter),
-    visibilityFilter: state.visibilityFilter
-})
+
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+        visibleTodos: selectTodos(state.todos, state.visibilityFilter),
+        visibilityFilter: state.visibilityFilter
+    }
+}
 
 const mapDispatchToProps = (dispatch) => (bindActionCreators({
     addTodo: addTodo,
     onTodoClick: completeTodo,
-    onChangeFilter: setVisibilityFilter
+    onChangeFilter: setVisibilityFilter,
+    onLoadPost: loadPosts
 }, dispatch))
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(visibleTodosSelector, mapDispatchToProps)(App)

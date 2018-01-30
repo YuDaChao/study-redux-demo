@@ -4,6 +4,8 @@ import {
 } from '../actions'
 
 const todos = (state = [], action) => {
+    console.log(action)
+    console.log(state)
     switch (action.type) {
         case ADD_TODO:
             return [
@@ -20,6 +22,8 @@ const todos = (state = [], action) => {
                     ? {...todo, completed: !todo.completed}
                     : todo
             )
+        case 'LOAD_POSTS_SUCCESS':
+            return { api: {...state} }
         default:
             return state
     }

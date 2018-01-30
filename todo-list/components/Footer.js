@@ -7,9 +7,9 @@ export default class Footer extends React.Component {
         this.props.onChangeFilter(name)
     }
     renderFilter = (filter, name) => {
-        if(filter === this.props.filter) {
-            return name
-        }
+        // if(filter === this.props.filter) {
+        //     return name
+        // }
 
         return (
             <a href="#"

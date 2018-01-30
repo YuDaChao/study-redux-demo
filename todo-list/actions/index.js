@@ -27,3 +27,13 @@ export const setVisibilityFilter = (filter) => ({
     type: SET_VISIBILITY_FILTER,
     filter
 })
+
+// test
+export function loadPosts() {
+    return {
+        types: ['LOAD_POSTS_REQUEST', 'LOAD_POSTS_SUCCESS', 'LOAD_POSTS_FAILURE'],
+        shouldCallAPI: () => true,
+        callAPI: () => new Promise((resolve) => resolve({success: true})),
+        payload: { }
+    };
+}
