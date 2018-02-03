@@ -1,8 +1,9 @@
+import { getTopics } from '../service/api'
+
 // action types
 export const ADD_TODO = 'ADD_TODO' // 添加一个待办项
 export const COMPLETED_TODO = 'COMPLETED_TODO' // 完成一个待办项
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER' // 显示待办项的类型
-
 
 export const visibilityFilter = {
     SHOW_ALL: 'SHOW_ALL',
@@ -33,7 +34,7 @@ export function loadPosts() {
     return {
         types: ['LOAD_POSTS_REQUEST', 'LOAD_POSTS_SUCCESS', 'LOAD_POSTS_FAILURE'],
         shouldCallAPI: () => true,
-        callAPI: () => new Promise((resolve) => resolve({success: true})),
+        callAPI: getTopics,
         payload: { }
     };
 }

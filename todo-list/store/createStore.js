@@ -4,7 +4,7 @@ import {
     compose
 } from 'redux'
 import reduxThunk from 'redux-thunk'
-import callAPIMiddleware from '../middlewares/createActionMiddleware'
+import callAPIMiddleware from '../middlewares/createAction'
 
 function createAppStore(history, reducers, initialState = {}) {
     let composeEnhancers = compose

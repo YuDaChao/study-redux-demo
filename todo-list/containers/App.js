@@ -25,7 +25,9 @@ class App extends React.Component {
             addTodo,
             onTodoClick,
             onChangeFilter,
+            posts
         } = this.props
+        console.log('===',posts)
         return [
             <AddTodo key="addTodo" addTodo={addTodo} />,
             <TodoList key="todoList" todos={visibleTodos} onClick={onTodoClick} />,
@@ -61,8 +63,9 @@ const selectTodos = (todos, filter) => {
 const mapStateToProps = (state) => {
     console.log(state)
     return {
-        visibleTodos: selectTodos(state.todos, state.visibilityFilter),
-        visibilityFilter: state.visibilityFilter
+        visibleTodos: selectTodos(state.todosReducers.todos, state.visibilityFilter),
+        visibilityFilter: state.visibilityFilter,
+        posts: state.api.posts
     }
 }
 
@@ -73,4 +76,4 @@ const mapDispatchToProps = (dispatch) => (bindActionCreators({
     onLoadPost: loadPosts
 }, dispatch))
 
-export default connect(visibleTodosSelector, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

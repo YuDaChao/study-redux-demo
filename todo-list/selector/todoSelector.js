@@ -14,16 +14,18 @@ function selectTodos(todos, filter) {
 
 const visibilityFilterSelector = (state) => state.visibilityFilter
 
-const todosSelector = (state) => state.todos
+const todosSelector = (state) => state.todosReducers.todos
+
+const postsSelector = (state) => state.api.posts
 
 export const visibleTodosSelector = createSelector(
-    [visibilityFilterSelector, todosSelector],
-    (visibilityFilter, todos) => {
-        console.log('todos: ', todos)
-        console.log('visibilityFilter: ', visibilityFilter)
+    [visibilityFilterSelector, todosSelector, postsSelector],
+    (visibilityFilter, todos, posts) => {
+        console.log('todos: ',todos)
         return {
             visibleTodos: selectTodos(todos, visibilityFilter),
-            visibilityFilter
+            visibilityFilter,
+            posts
         }
     }
 )

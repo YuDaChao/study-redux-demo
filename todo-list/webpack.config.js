@@ -4,6 +4,7 @@ const webpack = require('webpack')
 module.exports = {
     entry: [
         'react-hot-loader/patch',
+        'whatwg-fetch',
         path.join(__dirname, 'index.js')
     ],
     output: {
@@ -36,5 +37,11 @@ module.exports = {
         hot: true,
         contentBase: './public/',
         publicPath: '/public/',
+        proxy: {
+            '/api/*': {
+                target: 'https://cnodejs.org',
+                changeOrigin: true
+            }
+        }
     }
 }
