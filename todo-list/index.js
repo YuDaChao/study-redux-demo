@@ -1,29 +1,26 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import { Provider } from 'react-redux'
-import { AppContainer } from 'react-hot-loader'
-import App from './containers/App'
+import createBrowserHistory from 'history/createBrowserHistory'
 import rootReducers from './reducers'
 import createAppStore from './store/createStore'
+import createApp from './store/createApp'
 
-const store = createAppStore({}, rootReducers).store
+const client = createAppStore(createBrowserHistory(), rootReducers)
+
+const app = createApp(client.store, client.history)
 
 const rootEl = document.getElementById('root')
 
 
 const render = (Component) => {
     ReactDom.render(
-        <AppContainer>
-            <Provider store={store}>
-                <Component />
-            </Provider>
-        </AppContainer>,
+        Component,
         rootEl
     )
 }
 
-render(App)
+render(app)
 
 if (module.hot) {
-    module.hot.accept('./containers/App', () => { render(App) })
+    module.hot.accept('./router/index', () => { render(app) })
 }

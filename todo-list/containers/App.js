@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import {
     addTodo,
     completeTodo,
@@ -31,7 +32,8 @@ class App extends React.Component {
         return [
             <AddTodo key="addTodo" addTodo={addTodo} />,
             <TodoList key="todoList" todos={visibleTodos} onClick={onTodoClick} />,
-            <Footer key="footer" onChangeFilter={onChangeFilter} filter={visibilityFilter} />
+            <Footer key="footer" onChangeFilter={onChangeFilter} filter={visibilityFilter} />,
+            <Link key="index" to="/index">index</Link>
         ]
     }
 }
@@ -61,7 +63,7 @@ const selectTodos = (todos, filter) => {
 
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    console.log('state-> ',state)
     return {
         visibleTodos: selectTodos(state.todosReducers.todos, state.visibilityFilter),
         visibilityFilter: state.visibilityFilter,

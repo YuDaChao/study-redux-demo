@@ -29,7 +29,8 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        //new webpack.NoEmitOnErrorsPlugin()
     ],
     devServer: {
         host: '0.0.0.0',

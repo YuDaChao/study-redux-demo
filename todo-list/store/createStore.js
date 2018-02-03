@@ -1,8 +1,15 @@
 import {
     createStore,
     applyMiddleware,
-    compose
+    compose,
+    combineReducers
 } from 'redux'
+
+import {
+    routerReducer,
+    routerMiddleware
+} from 'react-router-redux'
+
 import reduxThunk from 'redux-thunk'
 import callAPIMiddleware from '../middlewares/createAction'
 
@@ -13,13 +20,19 @@ function createAppStore(history, reducers, initialState = {}) {
         composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
     }
 
+    const routeMiddleware = routerMiddleware(history)
+
     const middlewares = [
+        routeMiddleware,
         reduxThunk,
         callAPIMiddleware
     ]
 
     const store = createStore(
-        reducers,
+        combineReducers({
+            ...reducers,
+            router: routeMiddleware,
+        }),
         initialState,
         composeEnhancers(applyMiddleware(...middlewares))
     )

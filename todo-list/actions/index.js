@@ -34,7 +34,7 @@ export function loadPosts() {
     return {
         types: ['LOAD_POSTS_REQUEST', 'LOAD_POSTS_SUCCESS', 'LOAD_POSTS_FAILURE'],
         shouldCallAPI: () => true,
-        callAPI: getTopics,
+        callAPI: () => getTopics({page: 1, tab: 'ask', limit: 5}),
         payload: { }
     };
 }
