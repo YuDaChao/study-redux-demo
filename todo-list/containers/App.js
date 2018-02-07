@@ -14,7 +14,7 @@ import {
 import TodoList from '../components/TodoList'
 import AddTodo from '../components/AddTodo'
 import Footer from '../components/Footer'
-import { visibleTodosSelector } from '../selector/todoSelector'
+// import { visibleTodosSelector } from '../selector/todoSelector'
 class App extends React.Component {
     componentDidMount() {
         this.props.onLoadPost()
