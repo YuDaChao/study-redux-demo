@@ -28,7 +28,7 @@ class App extends React.Component {
             onChangeFilter,
             posts
         } = this.props
-        console.log('===',posts)
+        console.log('===1',posts)
         return [
             <AddTodo key="addTodo" addTodo={addTodo} />,
             <TodoList key="todoList" todos={visibleTodos} onClick={onTodoClick} />,

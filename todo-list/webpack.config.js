@@ -1,48 +1,58 @@
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpackMerge = require('webpack-merge')
 
-module.exports = {
-    entry: [
-        'react-hot-loader/patch',
-        'whatwg-fetch',
-        path.join(__dirname, 'index.js')
-    ],
+const baseConfig = require('./webpack-base')
+
+const isDev = process.env.NODE_ENV === 'development'
+
+let config = webpackMerge(baseConfig, {
+    entry: {
+        app: path.join(__dirname, './index.js')
+    },
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: '/public/'
-    },
-    resolve: {
-        extensions: ['.js', '.jsx']
-    },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: path.join(__dirname, 'node_modules')
-            },
-            {
-                test: /\.jsx$/,
-                loader: 'babel-loader'
-            }
-        ]
+        filename: '[name][hash].js'
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        //new webpack.NoEmitOnErrorsPlugin()
-    ],
-    devServer: {
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, 'public/index.html')
+        })
+    ]
+})
+
+if (isDev) {
+    config.devtool = '#cheap-module-eval-map'
+    config.entry = {
+        app: [
+            'react-hot-loader/patch',
+            'whatwg-fetch',
+            config.entry.app
+        ]
+    }
+    config.devServer = {
         host: '0.0.0.0',
         port: 3000,
         hot: true,
-        contentBase: './public/',
+        overlay: {
+            errors: true
+        },
+        contentBase: path.join(__dirname, 'dist'),
         publicPath: '/public/',
+        historyApiFallback: {
+            index: '/public/index.html'
+        },
         proxy: {
             '/api/*': {
-                target: 'https://cnodejs.org',
+                target: '',
+                secure: false,
                 changeOrigin: true
             }
         }
     }
+    config.plugins.push(
+        new webpack.HotModuleReplacementPlugin()
+    )
 }
+
+module.exports = config
