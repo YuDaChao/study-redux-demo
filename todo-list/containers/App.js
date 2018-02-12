@@ -33,7 +33,8 @@ class App extends React.Component {
             <AddTodo key="addTodo" addTodo={addTodo} />,
             <TodoList key="todoList" todos={visibleTodos} onClick={onTodoClick} />,
             <Footer key="footer" onChangeFilter={onChangeFilter} filter={visibilityFilter} />,
-            <Link key="index" to="/index">index</Link>
+            <Link key="index" to="/index">index</Link>,
+            <Link key="home" to="home">Home</Link>
         ]
     }
 }
