@@ -3,7 +3,9 @@ const path = require('path')
 module.exports = {
     output: {
         path: path.join(__dirname, 'dist'),
-        publicPath: '/public/'
+        publicPath: '/public/',
+        filename: '[name].[chunkhash:8].js',
+        chunkFilename: '[name].[chunkhash:8].chunk.js'
     },
     resolve: {
         extensions: ['.js', '.jsx']

@@ -18,6 +18,8 @@ const client = createAppStore(createBrowserHistory(), rootReducers)
 
 const rootEl = document.getElementById('root')
 
+const isDev = process.env.NODE_ENV === 'development'
+
 
 const render = (Component) => {
     ReactDom.render(
@@ -32,6 +34,9 @@ const render = (Component) => {
 
 render(RouterMap)
 
-if (module.hot) {
-    module.hot.accept('./router/index', () => { render(RouterMap) })
+
+if (isDev) {
+    if (module.hot) {
+        module.hot.accept('./router/index', () => { render(RouterMap) })
+    }
 }
